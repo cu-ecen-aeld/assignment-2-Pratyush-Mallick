@@ -1,0 +1,28 @@
+#!/bin/sh
+# Tester script for assignment 1 and assignment 2
+# Author: Siddhant Jajoo
+
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <directory> <search_string>"
+    exit 1
+fi
+
+filesdir=$1
+searchstr=$2
+
+# Check if filesdir is a directory and exists
+if [ ! -d "$filesdir" ]; then
+    echo "Error: $filesdir does not represent a directory on the filesystem"
+    exit 1
+fi
+
+# Find the number of files in the directory
+num_files=$(find "$filesdir" -type f | wc -l)
+
+# Find the number of matching lines in the files
+num_matching_lines=$(grep -r "$searchstr" "$filesdir" 2>/dev/null | wc -l)
+
+# Print the message
+echo "The number of files are $num_files and the number of matching lines are $num_matching_lines"
+
